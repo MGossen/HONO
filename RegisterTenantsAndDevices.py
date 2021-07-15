@@ -107,7 +107,7 @@ def getClientCmd(tenantId):
     print(cmd)
 
 def getClientCommandsCmd(tenantId):
-    cmd = f'java -jar hono-cli-1.7.1-exec.jar' \
+    cmd = f'java -jar hono-cli-1.8.1-exec.jar' \
           f' --hono.client.host=127.0.0.1 --hono.client.port=15672' \
           f' --hono.client.username=consumer@HONO --hono.client.password=verysecret ' \
           f'--spring.profiles.active=command ' \

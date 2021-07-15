@@ -70,12 +70,26 @@ def start():
                 x = False
 
             if keyinput == "99":
-                tenantId = input("TenantId:")
-                RegisterTenantsAndDevices.getClientCmd(tenantId)
+                registeredTenants = RegisterTenantsAndDevices.tenant_list
+                if registeredTenants == []:
+                    print("Keine Tenants registriert")
+                else:
+                    print("Registrierte Tenants:")
+                    print(registeredTenants)
+                    tenantId = input("TenantId:")
+                    RegisterTenantsAndDevices.getClientCmd(tenantId)
+                input("Enter um zum Menü zu gelangen!")
 
             if keyinput == "98":
-                tenantId = input("TenantId:")
-                RegisterTenantsAndDevices.getClientCommandsCmd(tenantId)
+                registeredTenants = RegisterTenantsAndDevices.tenant_list
+                if registeredTenants == []:
+                    print("Keine Tenants registriert")
+                else:
+                    print("Registrierte Tenants:")
+                    print(registeredTenants)
+                    tenantId = input("TenantId:")
+                    RegisterTenantsAndDevices.getClientCommandsCmd(tenantId)
+                input("Enter um zum Menü zu gelangen!")
         except:
             print("Unexpected Error: ", sys.exc_info())
             input("Enter To Close...")
