@@ -77,7 +77,7 @@ def start():
                 tenantId = input("TenantId:")
                 RegisterTenantsAndDevices.getClientCommandsCmd(tenantId)
         except:
-            print("Unexpected Error: ", sys.exc_info()[0])
+            print("Unexpected Error: ", sys.exc_info())
             input("Enter To Close...")
             x = False
 

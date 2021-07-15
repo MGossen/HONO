@@ -23,21 +23,27 @@ def registerTenants():
         tenant_name = input("Geben Sie einen Namen für einen Tenant ein:")
 
         # Delete existing tenant and devices
-        # check for existing devices in Tenant and delete them
-        response = requests.get(f'http://{registryIp}:28080/v1/devices/{tenant_name}',
-                                headers={'content-type': 'application/json'})
-        if response.status_code == 200:
-            registeredDevices = response.json()["result"]
-            for device in registeredDevices:
-                requests.delete(f'http://{registryIp}:28080/v1/devices/{tenant_name}/{device["id"]}')
 
-        # delete Tenant
-        response = requests.delete(f'http://{registryIp}:28080/v1/tenants/{tenant_name}')
+        # check for existing Tenant
+        response = requests.get(f'http://{registryIp}:28080/v1/tenants/{tenant_name}')
+
+        if response.status_code == 200:
+
+            # check for existing devices in Tenant and delete them
+            response = requests.get(f'http://{registryIp}:28080/v1/devices/{tenant_name}',
+                                    headers={'content-type': 'application/json'})
+            if response.status_code == 200:
+                registeredDevices = response.json()["result"]
+                for device in registeredDevices:
+                    requests.delete(f'http://{registryIp}:28080/v1/devices/{tenant_name}/{device["id"]}')
+
+            # delete Tenant
+            response = requests.delete(f'http://{registryIp}:28080/v1/tenants/{tenant_name}')
 
         # Register Tenant
         tenant = requests.post(f'http://{registryIp}:28080/v1/tenants/{tenant_name}').json()
         tenantId = tenant["id"]
-        if tenantId not in list:
+        if tenantId not in tenant_list:
             tenant_list.append(tenantId)
 
         print(f'Registered tenant {tenantId}')
